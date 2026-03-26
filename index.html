@@ -2,38 +2,68 @@
 <html>
 <head>
     <title>Happy Birthday Jackline 🎉</title>
+
     <style>
         body {
-            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
             text-align: center;
-            font-family: Arial, sans-serif;
-            color: #333;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            color: white;
+            overflow-x: hidden;
         }
 
         h1 {
-            margin-top: 60px;
+            margin-top: 40px;
             font-size: 3em;
-        }
-
-        p {
-            font-size: 1.4em;
-            margin: 20px;
         }
 
         img {
             width: 200px;
             border-radius: 50%;
             margin-top: 20px;
+            border: 5px solid white;
+        }
+
+        #typing {
+            font-size: 1.5em;
+            margin: 20px;
+            min-height: 60px;
         }
 
         button {
             padding: 12px 25px;
             font-size: 18px;
             border: none;
-            background: #ff4b5c;
-            color: white;
+            background: white;
+            color: #ff4b5c;
             border-radius: 10px;
             cursor: pointer;
+        }
+
+        #countdown {
+            font-size: 1.3em;
+            margin-top: 20px;
+        }
+
+        /* Floating hearts */
+        .heart {
+            position: fixed;
+            bottom: -10px;
+            font-size: 20px;
+            animation: floatUp 5s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -42,24 +72,72 @@
 
     <h1>🎉 Happy Birthday Jackline 🎂</h1>
 
-    <img src="jackline.jpg" alt="Jackline">
+    <img src="jackline.jpg">
 
-    <p>
-        You are such an amazing person 💖  
-        I’m really grateful to have you in my life.  
-        May your day be full of happiness, love, and laughter 🎉
-    </p>
+    <div id="typing"></div>
 
-    <button onclick="showMessage()">Click for Surprise ❤️</button>
+    <button onclick="showLove()">Click Me ❤️</button>
 
-    <p id="message"></p>
+    <p id="love"></p>
 
-    <script>
-        function showMessage() {
-            document.getElementById("message").innerHTML =
-            "You mean a lot to me 💕 Never forget that 😊";
+    <div id="countdown"></div>
+
+<script>
+    // 💌 Typing Effect
+    const message = "You are special to me 💖 I’m really lucky to have you in my life. Happy Birthday once again 🎉";
+    let index = 0;
+
+    function typeEffect() {
+        if (index < message.length) {
+            document.getElementById("typing").innerHTML += message.charAt(index);
+            index++;
+            setTimeout(typeEffect, 50);
         }
-    </script>
+    }
+
+    typeEffect();
+
+    // ❤️ Button Message
+    function showLove() {
+        document.getElementById("love").innerHTML = "You mean a lot to me 💕😊";
+    }
+
+    // 🎁 Countdown Timer (SET HER BIRTHDAY DATE HERE)
+    const birthday = new Date("April 5, 2026 00:00:00")
+
+    setInterval(function() {
+        const now = new Date().getTime();
+        const distance = birthday - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+        "🎁 Countdown: " + days + "d " + hours + "h "
+        + minutes + "m " + seconds + "s";
+
+    }, 1000);
+
+    // 💖 Floating Hearts Generator
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 5000);
+    }
+
+    setInterval(createHeart, 300);
+</script>
 
 </body>
 </html>
